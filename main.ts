@@ -12,56 +12,34 @@ const team = [
   "Christian",
 ];
 
-const loadingAnimation1 = async (duration = 2000, speed = 100) => {
-  const animationItems = ["/", "-", "\\", "|"];
+const loadingText = [
+  "Wellll this is *slightly* more complicated than expected...",
+  "HOUSTON, WE HAVE ACHIEVED PEAK IMPOSSIBILITY! 🚀💥",
+  "I'm not sure if I can do this... 🤔",
+  "Seriously? That's ALL we could find?",
+];
+
+const loadingAnimation1 = async (
+  duration: number,
+  speed: number,
+  loadingText: string[],
+  repetitions: number
+) => {
+  const animationItems = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"];
 
   const sleep = (ms: number) =>
     new Promise((resolve) => setTimeout(resolve, ms));
   const frames = Math.floor(duration / speed);
 
-  for (let i = 0; i < frames; i++) {
-    process.stdout.write(
-      `\r${
-        animationItems[i % animationItems.length]
-      } Seriously? That's ALL we could find? *dramatic sigh*`
-    );
-    await sleep(speed);
-  }
-  process.stdout.write("\r"); // Clear the line when done
-};
-
-const loadingAnimation2 = async (duration = 2000, speed = 100) => {
-  const animationItems = ["/", "-", "\\", "|"];
-
-  const sleep = (ms: number) =>
-    new Promise((resolve) => setTimeout(resolve, ms));
-  const frames = Math.floor(duration / speed);
-
-  for (let i = 0; i < frames; i++) {
-    process.stdout.write(
-      `\r${
-        animationItems[i % animationItems.length]
-      } Wellll this is *slightly* more complicated than my tiny brain anticipated... 🙃`
-    );
-    await sleep(speed);
-  }
-  process.stdout.write("\r"); // Clear the line when done
-};
-
-const loadingAnimation3 = async (duration = 2000, speed = 100) => {
-  const animationItems = ["/", "-", "\\", "|"];
-
-  const sleep = (ms: number) =>
-    new Promise((resolve) => setTimeout(resolve, ms));
-  const frames = Math.floor(duration / speed);
-
-  for (let i = 0; i < frames; i++) {
-    process.stdout.write(
-      `\r${
-        animationItems[i % animationItems.length]
-      } HOUSTON, WE HAVE ACHIEVED PEAK IMPOSSIBILITY! 🚀💥 *SCREAMS IN JAVASCRIPT*`
-    );
-    await sleep(speed);
+  for (let i = 0; i < repetitions; i++) {
+    for (let f = 0; f < frames; f++) {
+      process.stdout.write(
+        `\r${animationItems[f % animationItems.length]} ${
+          loadingText[i]
+        }${" ".repeat(30)}`
+      );
+      await sleep(speed);
+    }
   }
   process.stdout.write("\r"); // Clear the line when done
 };
@@ -86,14 +64,15 @@ const wheelOfShuffling = async (team: string[]) => {
   await rl.question(
     "So, you need new moderators? Again? How were the last ones? That bad? "
   );
-  await loadingAnimation1();
-  await loadingAnimation2();
-  await loadingAnimation3();
+  const speed = 100;
+  const duration = 3000;
+  const repetitions = 4;
+
+  await loadingAnimation1(duration, speed, loadingText, repetitions);
 
   console.log(
-    "Oh suuuure, let's ask",
-    ...moderators,
-    "because they're just *sooooo* amazing at their jobs... 🙄✨"
+    "I give up! I can't do this anymore! I'm done! Let's just go with these two:",
+    ...moderators
   );
   rl.close();
 };
