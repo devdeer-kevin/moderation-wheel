@@ -72,7 +72,7 @@ const loadingAnimation = async (
       await sleep(speed);
     }
   }
-  process.stdout.write("\r"); // Clear the line when done
+  process.stdout.write("\r");
 };
 
 const wheelOfShuffling = async (team: string[]) => {
