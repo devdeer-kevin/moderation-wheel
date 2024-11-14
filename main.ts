@@ -19,7 +19,7 @@ const loadingText = [
   "Seriously? That's ALL we could find?",
 ];
 
-const loadingAnimation1 = async (
+const loadingAnimation = async (
   duration: number,
   speed: number,
   loadingText: string[],
@@ -68,7 +68,7 @@ const wheelOfShuffling = async (team: string[]) => {
   const duration = 3000;
   const repetitions = 4;
 
-  await loadingAnimation1(duration, speed, loadingText, repetitions);
+  await loadingAnimation(duration, speed, loadingText, repetitions);
 
   console.log(
     "I give up! I can't do this anymore! I'm done! Let's just go with these two:",
